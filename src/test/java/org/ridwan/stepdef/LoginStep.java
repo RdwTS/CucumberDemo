@@ -1,20 +1,29 @@
-package org.ridwan;
+package org.ridwan.stepdef;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.ridwan.page.LoginPage;
+import org.ridwan.BaseTest;
 
-public class LoginStepWithGherkin {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    WebDriver driver = WebDriverManager.chromedriver().create();
-    LoginPage loginPage = new LoginPage(driver);
+public class LoginStep extends BaseTest{
+
+    LoginPage loginPage;
 
     @Given("user is on login page")
     public void userIsOnLoginPage(){
-        driver.get("https://www.saucedemo.com/");
+        loginPage = new LoginPage(driver);
+        loginPage.goToLoginPage();
     }
 
     @When("user click login button")
@@ -32,8 +41,8 @@ public class LoginStepWithGherkin {
         loginPage.inputPassword(password);
     }
 
-    @Then("user will be on homepage")
-    public void userWillBeOnHomepage() {
-
+    @And("user able to see error message {string}")
+    public void userSeeErrorMessage(String errorMessage) {
+        loginPage.validateErrorAppear(errorMessage);
     }
 }

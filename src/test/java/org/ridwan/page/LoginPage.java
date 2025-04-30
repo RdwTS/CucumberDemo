@@ -1,7 +1,9 @@
-package org.ridwan;
+package org.ridwan.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginPage {
 
@@ -16,6 +18,10 @@ public class LoginPage {
 
     }
 
+    public void goToLoginPage() {
+        driver.get("https://www.saucedemo.com/");
+    }
+
     public void inputUsername (String username){
         driver.findElement(usernameInputText).sendKeys(username);
     }
@@ -26,6 +32,10 @@ public class LoginPage {
 
     public void clickLoginButton (){
         driver.findElement(loginButton).click();
+    }
+
+    public void validateErrorAppear(String errorMessage) {
+        assertTrue(driver.getPageSource().contains(errorMessage));
     }
 
 
